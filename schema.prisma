@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
+  avatar   String?
+  balance  Int       @default(0)
+  products Product[]
+  profile  Profile?
+}
+
+model Profile {
+  id     Int    @id @default(autoincrement())
+  bio    String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
+}
+
+model Product {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  title      String
+  desc       String?
+  image      String?
+  nft        String?
+  published  Boolean    @default(false)
+  author     User?      @relation(fields: [authorId], references: [id])
+  authorId   Int?
+  categories Category[] @relation(references: [id])
+  stories    Stories[]
+}
+
+model Stories {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  text      String
+  url       String?
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[] @relation(references: [id])
+}
