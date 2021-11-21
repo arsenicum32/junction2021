@@ -164,9 +164,17 @@ function alignOutput(labelValuePairs) {
     }
 }
 
-// ---- main entry point when running as a script
+module.exports = {
+  createNFT,
+  getNFT,
+  transferNFT,
+  createNFTtext,
+  deploy
+}
 
-// make sure we catch all errors
+// // ---- main entry point when running as a script
+//
+// // make sure we catch all errors
 main().then(() => {
     process.exit(0)
 }).catch(err => {

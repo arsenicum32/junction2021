@@ -31,6 +31,7 @@ model Product {
   desc       String?
   image      String?
   nft        String?
+  price      Int?
   published  Boolean    @default(false)
   author     User?      @relation(fields: [authorId], references: [id])
   authorId   Int?
